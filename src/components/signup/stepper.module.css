@@ -1,0 +1,248 @@
+/* Onboarding stepper. Colours come from the page's tokens (--color-*), so each page keeps its own accent. */
+.wrap {
+  display: flex;
+  justify-content: center;
+  padding: 4px 24px 0;
+}
+.stepper {
+  --accent: var(--color-iris-blue);
+  --glow: color-mix(in srgb, var(--accent) 38%, transparent);
+  --soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  width: min(100%, 540px);
+  padding: 12px 24px 10px;
+  border-radius: 18px;
+  outline: none;
+  transition: box-shadow 0.3s var(--ease);
+}
+.stepper:focus-visible {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px var(--accent);
+}
+.list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* one step: node, tiny "Step n", then the title that appears on hover */
+.step {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  cursor: default;
+  transition: opacity 0.4s var(--ease);
+}
+.list:hover .step:not(:hover) {
+  opacity: 0.55;
+}
+
+/* the slim line to the next dot: a hairline track with a glowing fill */
+.step::after,
+.step::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: calc(50% + 26px);
+  width: calc(100% - 52px);
+  height: 1px;
+  pointer-events: none;
+}
+.step::after {
+  background-color: color-mix(in srgb, var(--color-dove-gray) 85%, transparent);
+  background-image: linear-gradient(
+    90deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 35%, transparent)
+  );
+  background-repeat: no-repeat;
+  background-size: var(--fill, 0%) 100%;
+  transition:
+    background-size 0.9s var(--ease),
+    filter 0.5s;
+}
+.step[data-link="done"] {
+  --fill: 100%;
+}
+.step[data-link="done"]::after {
+  filter: drop-shadow(0 0 3px var(--glow));
+}
+.step[data-link="next"] {
+  --fill: 34%;
+}
+.last::after,
+.last::before {
+  display: none;
+}
+/* a faint light travels along the line while the stepper is open */
+.step::before {
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+  background-size: 40% 100%;
+  background-repeat: no-repeat;
+  background-position: -60% 0;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+}
+.stepper:hover .step::before,
+.stepper:focus-within .step::before {
+  opacity: 1;
+  animation: travel 2.6s var(--ease) infinite;
+  animation-delay: calc(var(--i) * 0.25s);
+}
+@keyframes travel {
+  to {
+    background-position: 160% 0;
+  }
+}
+
+/* the dot */
+.node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--color-dove-gray);
+  border-radius: 9999px;
+  background: #fff;
+  color: var(--color-graphite);
+  opacity: 0.9;
+  transition:
+    transform 0.5s var(--ease),
+    box-shadow 0.5s var(--ease),
+    border-color 0.4s,
+    color 0.4s,
+    background 0.4s;
+}
+.node svg {
+  width: 14px;
+  height: 14px;
+}
+.step[data-state="upcoming"] .node {
+  border-color: var(--color-pale-slate);
+  color: color-mix(in srgb, var(--color-graphite) 70%, transparent);
+}
+.step[data-state="done"] .node {
+  border-color: transparent;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 80%, #fff), var(--accent));
+  color: #fff;
+  opacity: 1;
+  box-shadow:
+    0 0 0 3px var(--soft),
+    0 6px 14px -6px var(--glow);
+}
+.step[data-state="active"] .node {
+  border-color: var(--accent);
+  color: var(--accent);
+  opacity: 1;
+  box-shadow:
+    0 0 0 4px var(--soft),
+    0 0 22px var(--glow);
+}
+.step[data-state="active"] .node::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--accent);
+  border-radius: inherit;
+  opacity: 0;
+  animation: ping 2.8s var(--ease) infinite;
+}
+@keyframes ping {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.75);
+  }
+}
+.stepper:hover .node,
+.stepper:focus-within .node {
+  transform: translateY(-1px);
+}
+.step:hover .node {
+  transform: translateY(-2px) scale(1.07);
+}
+
+/* labels */
+.eyebrow {
+  color: var(--color-graphite);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  transition: color 0.4s;
+}
+.step[data-state="active"] .eyebrow {
+  color: var(--accent);
+}
+.title {
+  height: 18px;
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+  line-height: 18px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  filter: blur(4px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.4s var(--ease),
+    filter 0.35s ease;
+  margin-top: -2px;
+}
+.stepper:hover .title,
+.stepper:focus-within .title {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 0.5s ease calc(var(--i) * 70ms),
+    transform 0.6s var(--ease) calc(var(--i) * 70ms),
+    filter 0.5s ease calc(var(--i) * 70ms);
+}
+.step[data-state="upcoming"] .title {
+  color: var(--color-iron);
+}
+
+/* touch has no hover: show the titles all the time */
+@media (hover: none) {
+  .title {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+@media (max-width: 480px) {
+  .stepper {
+    padding-inline: 8px;
+  }
+  .title {
+    font-size: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step[data-state="active"] .node::after,
+  .stepper:hover .step::before,
+  .stepper:focus-within .step::before {
+    animation: none;
+  }
+  .stepper *,
+  .stepper {
+    transition-duration: 0.01ms !important;
+  }
+}

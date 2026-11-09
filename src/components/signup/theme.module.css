@@ -1,0 +1,521 @@
+/* The signup design system: a daylight lavender-to-white canvas, one blue family, hairline borders, 6px radii.
+   Fonts are system stacks (the repo ships no web fonts); the serif stands in for the display face. */
+.root {
+  --color-iris-blue: #3161df;
+  --color-cobalt: #3e79ea;
+  --color-midnight-iris: #2c65d3;
+  --color-mint-pulse: #89ecb0;
+  --color-ink: #272c30;
+  --color-iron: #526068;
+  --color-graphite: #60737a;
+  --color-dove-gray: #a6b4ba;
+  --color-pale-slate: #e3e8ea;
+  --color-lavender-mist: #f0f5fe;
+  --gradient-cobalt: linear-gradient(rgb(88, 151, 247), rgb(56, 114, 230));
+  --shadow-subtle: rgba(39, 44, 48, 0.1) 0 0 0 1px;
+  --shadow-sm:
+    rgba(63, 70, 75, 0.04) 0 0 8px 0, rgba(63, 70, 75, 0.03) 0 1px 5px 0,
+    rgba(55, 61, 66, 0.05) 0 0 0 1px;
+  --shadow-xl:
+    rgba(63, 70, 75, 0.1) 0 21px 44px -32px, rgba(39, 44, 48, 0.2) 0 26px 30px -23px,
+    rgba(39, 44, 48, 0.05) 0 14px 40px 0, rgba(39, 44, 48, 0.08) 0 0 0 1px,
+    rgba(39, 44, 48, 0.12) 0 4px 8px 0;
+  --shadow-button:
+    rgba(255, 255, 255, 0.25) 0 1px 0 0 inset, rgba(26, 41, 61, 0.15) 0 1px 3px 0,
+    rgba(26, 41, 61, 0.11) 0 7px 11px -5px, rgba(26, 41, 61, 0.08) 0 0 0 1px;
+  --shadow-halo: rgb(255, 255, 255) 0 0 0 2px, rgba(39, 44, 48, 0.13) 0 1px 2px 2px;
+  --family-display:
+    "Inter Display", Inter, "Segoe UI Variable Display", "SF Pro Display", -apple-system,
+    "Helvetica Neue", ui-sans-serif, system-ui, Arial, sans-serif;
+  --family-ui:
+    Inter, "Segoe UI Variable Text", "SF Pro Text", -apple-system, "Helvetica Neue", ui-sans-serif,
+    system-ui, Arial, sans-serif;
+  --family-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--family-ui);
+  font-size: 14px;
+  font-weight: 450;
+  line-height: 1.43;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-optical-sizing: auto;
+  font-feature-settings: "cv11", "ss03";
+}
+.root * {
+  box-sizing: border-box;
+}
+
+/* Hero aurora over the lavender wash, with a fine grain on top. */
+.root::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: -2;
+  height: 640px;
+  background:
+    radial-gradient(
+      90% 100% at 57.77% 0,
+      rgba(0, 89, 255, 0.17),
+      rgba(129, 118, 255, 0.12) 36.5%,
+      rgba(129, 118, 255, 0) 75%
+    ),
+    linear-gradient(var(--color-lavender-mist), rgba(255, 255, 255, 0));
+}
+.root::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* navigation and footer */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+}
+.brandRow {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.logo {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--color-ink);
+  color: #fff;
+  box-shadow: var(--shadow-button);
+}
+.brandName {
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.badge {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: var(--color-pale-slate);
+  color: var(--color-graphite);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.badge svg {
+  width: 12px;
+  height: 12px;
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.ghost {
+  display: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: var(--color-ink);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.ghost:hover {
+  background: rgba(39, 44, 48, 0.06);
+}
+.ghostShow {
+  display: inline-flex;
+}
+.outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid var(--color-dove-gray);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-ink);
+  font-size: 14px;
+  font-weight: 550;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.outline:hover {
+  background: var(--color-pale-slate);
+}
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 24px 20px;
+}
+.footerNote {
+  margin: 0;
+  color: var(--color-graphite);
+  font-family: var(--family-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+.footerLinks a {
+  color: var(--color-iron);
+  font-size: 12px;
+  text-decoration: none;
+}
+.footerLinks a:hover {
+  color: var(--color-ink);
+}
+@media (min-width: 640px) {
+  .badge {
+    display: inline-flex;
+  }
+  .footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+@media (min-width: 768px) {
+  .ghost {
+    display: inline-flex;
+  }
+}
+
+/* page layout */
+.grid {
+  display: grid;
+  flex: 1;
+  gap: 24px;
+  padding: 12px 24px;
+}
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 0.94fr 1.06fr;
+  }
+}
+.formPanel {
+  display: flex;
+  min-height: 640px;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  border-radius: 6px;
+  background: transparent;
+}
+.formCol {
+  display: flex;
+  min-height: 640px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 48px 24px;
+}
+.formInner {
+  width: 100%;
+  max-width: 420px;
+}
+.formNarrow {
+  display: flex;
+  width: 100%;
+  max-width: 380px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* type */
+.halo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 20px;
+  border-radius: 9999px;
+  background: #fff;
+  color: var(--color-ink);
+  box-shadow: var(--shadow-halo);
+}
+.halo svg {
+  width: 20px;
+  height: 20px;
+}
+.center {
+  text-align: center;
+}
+.centerHalo {
+  margin-inline: auto;
+}
+.headline {
+  margin: 0;
+  font-family: var(--family-display);
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  color: var(--color-ink);
+}
+.gradientText {
+  display: block;
+  background: var(--gradient-cobalt);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.lede {
+  margin: 12px 0 0;
+  color: var(--color-iron);
+  font-size: 16px;
+  font-weight: 450;
+  line-height: 1.5;
+}
+
+/* controls */
+.stack {
+  display: grid;
+  gap: 12px;
+}
+.pair {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 480px) {
+  .pair {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.primary {
+  display: inline-flex;
+  width: 100%;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 6px;
+  background: var(--gradient-cobalt);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 550;
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  transition:
+    filter 0.15s,
+    transform 0.15s;
+}
+.primary:hover {
+  filter: brightness(1.05);
+}
+.primary:active {
+  transform: translateY(1px);
+}
+.primary:focus-visible,
+.secondary:focus-visible,
+.input:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px var(--color-iris-blue);
+}
+.secondary {
+  display: inline-flex;
+  min-width: 0;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 14px;
+  border: 1px solid var(--color-dove-gray);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 550;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.secondary:hover {
+  background: var(--color-pale-slate);
+}
+.secondary svg {
+  flex: none;
+}
+.field {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+}
+.label {
+  color: var(--color-iron);
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: 0.02em;
+}
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-dove-gray);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 14px;
+}
+.input::placeholder {
+  color: var(--color-graphite);
+  opacity: 0.8;
+}
+.input:focus {
+  border-color: var(--color-iris-blue);
+}
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 4px 0;
+  color: var(--color-graphite);
+  font-family: var(--family-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--color-pale-slate);
+}
+.legal {
+  margin: 4px 0 0;
+  color: var(--color-graphite);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.link {
+  color: var(--color-iris-blue);
+  font-weight: 500;
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.signin {
+  margin: 4px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-pale-slate);
+  color: var(--color-iron);
+  font-size: 13px;
+  text-align: center;
+}
+.signin .link {
+  margin-left: 4px;
+}
+
+.avatarDot {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-left: 6px;
+  border-radius: 9999px;
+  background: #fff;
+  color: var(--color-iron);
+  box-shadow: var(--shadow-halo);
+}
+
+/* Cream page (shared by both signup pages): a softly lit paper with a visible film grain. */
+.cream {
+  background:
+    radial-gradient(120% 70% at 18% 0%, #fbf9f5, rgba(251, 249, 245, 0) 70%),
+    linear-gradient(#f6f3ee, #efeae1);
+}
+.cream::before {
+  height: 520px;
+  background: radial-gradient(70% 100% at 50% 0, rgba(43, 80, 221, 0.08), rgba(43, 80, 221, 0) 70%);
+}
+.cream::after {
+  opacity: 0.2;
+  mix-blend-mode: multiply;
+  background-size: 220px 220px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Paper variant (sign-up2 only): a warm cream page, white rounded cards, one ultramarine accent. */
+.paper {
+  --color-iris-blue: #2b50dd;
+  --color-cobalt: #2b50dd;
+  --color-midnight-iris: #2342c4;
+  --color-ink: #1b1915;
+  --color-iron: #57524a;
+  --color-graphite: #8c867b;
+  --color-dove-gray: #d6d0c5;
+  --color-pale-slate: #ece8e0;
+  --color-lavender-mist: #f6f3ee;
+  --gradient-cobalt: linear-gradient(#3d68f0, #2a4ed6);
+  --shadow-sm: rgba(70, 55, 35, 0.05) 0 1px 3px 0, rgba(70, 55, 35, 0.08) 0 0 0 1px;
+  --shadow-button:
+    rgba(255, 255, 255, 0.28) 0 1px 0 0 inset, rgba(30, 50, 140, 0.28) 0 1px 3px 0,
+    rgba(30, 50, 140, 0.2) 0 8px 14px -8px, rgba(30, 50, 140, 0.18) 0 0 0 1px;
+  --shadow-halo: rgb(255, 255, 255) 0 0 0 2px, rgba(70, 55, 35, 0.13) 0 1px 2px 2px;
+}
+.paper .logo {
+  border-radius: 9px;
+}
+.paper .ghost,
+.paper .outline,
+.paper .secondary,
+.paper .input,
+.paper .primary {
+  border-radius: 10px;
+}
+.paper .ghost:hover {
+  background: rgba(70, 55, 35, 0.06);
+}
+.paper .formCol {
+  background: transparent;
+  box-shadow: none;
+}
+.paper .gradientText {
+  background: linear-gradient(#4a74f5, #2446cf);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.paper .halo {
+  background: var(--color-lavender-mist);
+}

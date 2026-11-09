@@ -1,0 +1,319 @@
+/* The signup story stage: a white, grained, daylight room with one 3D deck of app screens. Always light. */
+.frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-lavender-mist, #f6f3ee);
+}
+.story {
+  --color-ink: #1b1915;
+  --color-iron: #57524a;
+  --color-graphite: #8c867b;
+  --color-dove-gray: #d6d0c5;
+  --color-pale-slate: #ece8e0;
+  --color-lavender-mist: #f6f3ee;
+  --color-iris-blue: #2b50dd;
+  --color-mint-pulse: #2b50dd;
+  --shadow-xl:
+    rgba(70, 55, 35, 0.08) 0 21px 44px -32px, rgba(70, 55, 35, 0.16) 0 26px 30px -23px,
+    rgba(70, 55, 35, 0.05) 0 14px 40px 0, rgba(70, 55, 35, 0.08) 0 0 0 1px,
+    rgba(70, 55, 35, 0.1) 0 4px 8px 0;
+  --shadow-sm: rgba(70, 55, 35, 0.05) 0 1px 3px 0, rgba(70, 55, 35, 0.08) 0 0 0 1px;
+  --shadow-halo: rgb(255, 255, 255) 0 0 0 2px, rgba(70, 55, 35, 0.13) 0 1px 2px 2px;
+  --family-display:
+    "Inter Display", Inter, "Segoe UI Variable Display", "SF Pro Display", -apple-system,
+    "Helvetica Neue", ui-sans-serif, system-ui, Arial, sans-serif;
+  --family-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: absolute;
+  width: 640px;
+  height: 720px;
+  transform-origin: 0 0;
+  color: var(--color-ink);
+  font-family:
+    Inter,
+    "Segoe UI Variable Text",
+    "SF Pro Text",
+    -apple-system,
+    "Helvetica Neue",
+    ui-sans-serif,
+    system-ui,
+    Arial,
+    sans-serif;
+  font-size: 13px;
+  font-weight: 450;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss03";
+  user-select: none;
+}
+.story *,
+.story *::before,
+.story *::after {
+  box-sizing: border-box;
+}
+
+/* At the start of a scene everything snaps to its resting state, so nothing ghosts back in. */
+.reset,
+.reset *,
+.reset *::before,
+.reset *::after {
+  transition: none !important;
+  animation: none !important;
+}
+.picture {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+  transition: opacity 0.9s var(--ease);
+}
+.out .picture {
+  opacity: 0;
+}
+.world {
+  position: absolute;
+  left: 0;
+  top: 44px;
+  width: 640px;
+  height: 520px;
+  perspective: 1500px;
+  perspective-origin: 50% 36%;
+  animation: breathe 9s ease-in-out infinite alternate;
+}
+@keyframes breathe {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -7px;
+  }
+}
+.floor {
+  position: absolute;
+  left: 100px;
+  top: 470px;
+  width: 440px;
+  height: 64px;
+  background: radial-gradient(closest-side, rgba(70, 55, 35, 0.2), transparent);
+  filter: blur(12px);
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+.floorOn {
+  opacity: 1;
+}
+
+/* parties */
+.parties {
+  position: absolute;
+  left: 0;
+  top: 556px;
+  width: 640px;
+}
+.party {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 284px;
+  height: 58px;
+  padding: 0 14px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.9s var(--ease),
+    box-shadow 0.6s;
+}
+.partyN {
+  left: 24px;
+}
+.partyB {
+  right: 24px;
+}
+.partyOn {
+  opacity: 1;
+  transform: none;
+}
+.partyDone {
+  box-shadow:
+    var(--shadow-sm),
+    0 0 0 1px var(--color-iris-blue);
+}
+.icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  background: #fff;
+  color: var(--color-ink);
+  box-shadow: var(--shadow-halo);
+}
+.icon svg {
+  width: 16px;
+  height: 16px;
+}
+.partyText {
+  min-width: 0;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+.partyName {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+.partyStatus {
+  position: relative;
+  display: block;
+  height: 16px;
+  color: var(--color-graphite);
+  font-size: 10.5px;
+}
+.partyStatus > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 16px;
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.5s var(--ease);
+}
+.partyStatus .got {
+  padding: 0 8px;
+  border-radius: 9999px;
+  background: rgba(43, 80, 221, 0.12);
+  color: var(--color-iris-blue);
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(5px);
+}
+.partyDone .partyStatus .wait {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+.partyDone .partyStatus .got {
+  opacity: 1;
+  transform: none;
+}
+.tag {
+  margin-left: auto;
+  color: var(--color-graphite);
+  font-family: inherit;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* hairlines from the receipt to both parties */
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 640px;
+  height: 720px;
+  overflow: visible;
+  pointer-events: none;
+}
+.lines path {
+  fill: none;
+  stroke: var(--color-dove-gray);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.2s var(--ease);
+}
+.linesOn path {
+  stroke-dashoffset: 0;
+}
+
+/* caption and chapters */
+.caption {
+  position: absolute;
+  left: 0;
+  top: 630px;
+  width: 640px;
+  height: 46px;
+  text-align: center;
+}
+.caption > div {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+}
+.caption > div[data-active="true"] {
+  opacity: 1;
+  transform: none;
+}
+.caption strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.caption span {
+  color: var(--color-iron);
+  font-size: 12.5px;
+}
+.chapters {
+  position: absolute;
+  left: 0;
+  top: 686px;
+  width: 640px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.chapters button {
+  height: 26px;
+  padding: 0 13px;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--color-graphite);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.chapters button:hover {
+  color: var(--color-ink);
+}
+.chapters button[aria-pressed="true"] {
+  border-color: var(--color-dove-gray);
+  background: #fff;
+  color: var(--color-ink);
+}
+.chapters button:focus-visible {
+  outline: 2px solid var(--color-iris-blue);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story *,
+  .story *::before,
+  .story *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}

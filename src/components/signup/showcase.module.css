@@ -1,0 +1,119 @@
+/* Page 1 right panel. Tokens come from theme.module.css values, repeated here because modules do not share scope. */
+.panel {
+  --color-ink: #272c30;
+  --color-iron: #526068;
+  --color-graphite: #60737a;
+  --color-pale-slate: #e3e8ea;
+  --color-dove-gray: #a6b4ba;
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: rgba(39, 44, 48, 0.1) 0 0 0 1px;
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+.copy {
+  position: relative;
+  max-width: 540px;
+  margin: 0;
+  padding: 44px 44px 0;
+}
+.byline {
+  margin-bottom: 14px;
+  color: rgba(255, 255, 255, 0.62);
+  font-family:
+    Inter,
+    "Segoe UI Variable Text",
+    "SF Pro Text",
+    -apple-system,
+    "Helvetica Neue",
+    ui-sans-serif,
+    system-ui,
+    Arial,
+    sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.quote {
+  margin: 0;
+  color: #fff;
+  font-family:
+    "Inter Display",
+    Inter,
+    "Segoe UI Variable Display",
+    "SF Pro Display",
+    -apple-system,
+    "Helvetica Neue",
+    ui-sans-serif,
+    system-ui,
+    Arial,
+    sans-serif;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.gradient {
+  background: linear-gradient(rgb(88, 151, 247), rgb(56, 114, 230));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.frame {
+  position: absolute;
+  top: 270px;
+  left: 44px;
+  right: -90px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow:
+    rgba(63, 70, 75, 0.1) 0 21px 44px -32px,
+    rgba(39, 44, 48, 0.2) 0 26px 30px -23px,
+    rgba(39, 44, 48, 0.05) 0 14px 40px 0,
+    rgba(39, 44, 48, 0.08) 0 0 0 1px,
+    rgba(39, 44, 48, 0.12) 0 4px 8px 0;
+}
+.chrome {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: var(--color-pale-slate);
+}
+.chrome i {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-dove-gray);
+}
+.chrome i:nth-child(3) {
+  margin-right: 8px;
+}
+.tab,
+.tabOn {
+  padding: 3px 10px;
+  border-radius: 6px;
+  color: var(--color-graphite);
+  font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.tabOn {
+  border: 1px solid var(--color-dove-gray);
+  background: #fff;
+  color: var(--color-ink);
+}
